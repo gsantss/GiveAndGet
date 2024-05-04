@@ -3,6 +3,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
+import 'package:giveandgetapp/pages/home/home_page.dart';
 
 import '../../../shared/widgets/my_input_field.dart';
 import '../../../shared/widgets/my_text_button.dart';
@@ -77,7 +78,9 @@ class _LoginState extends State<Login> {
                               SizedBox(height: 40),
                               MyTextButton(label: "LOGIN",
                               onTap: (){
-                                print(this.emailController.text + "|" + this.passwordController.text);
+                                Navigator.push(context,
+                                    MaterialPageRoute(builder: (context)=>Home())
+                                );
                               },
                               )
                             ],
