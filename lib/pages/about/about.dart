@@ -17,14 +17,15 @@ class _AboutScreenApp extends State<About> {
             Container(
               color: Colors.blue,
               height: 100,
-              width: double.infinity,
               alignment: Alignment.center,
               child: Padding(
-                padding: const EdgeInsets.only(top: 40),
+                padding: const EdgeInsets.only(top: 40, left: 10, right: 120),
                 child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
                     GestureDetector(
                         onTap: (){
+                          print("Opa Mosh Mosh");
                           Navigator.push(context,
                               MaterialPageRoute(builder: (context)=>Home())
                           );

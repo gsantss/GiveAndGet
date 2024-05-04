@@ -13,6 +13,14 @@ class Home extends StatefulWidget {
 }
 
 class _HomeState extends State<Home> {
+  List<Map<String, dynamic>> _produtos = [];
+  bool _atualizando = true;
+
+  final int _idUsuario = 0;
+  final TextEditingController _imagem = TextEditingController();
+  final TextEditingController _descricao = TextEditingController();
+  final bool _status = true;
+
   @override
   Widget build(BuildContext context) {
 

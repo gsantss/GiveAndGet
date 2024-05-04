@@ -6,6 +6,7 @@ class ProductHelper {
     await database.execute(""" CREATE TABLE tbProdutos(
 id INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL,
 idUsuario INTEGER,
+idComunidade INTEGER DEFAULT 1,
 imagem TEXT,
 descricao TEXT,
 status BOOLEAN,
@@ -26,9 +27,9 @@ updatedIdUser INTEGER NOT NULL
     );
   }
 
-  static Future<int> addProduct(int idUser, String imagem, String descricao, bool status, DateTime createdAt, int createdIdUser, DateTime updatedAt, int updatedIdUser) async {
+  static Future<int> addProduct(int idUser, int idComunidade, String imagem, String descricao, bool status, DateTime createdAt, int createdIdUser, DateTime updatedAt, int updatedIdUser) async {
     final db = await ProductHelper.db();
-    final dados = {'idUsuario': idUser, 'imagem': imagem,
+    final dados = {'idUsuario': idUser, 'idComunidade': idComunidade, 'imagem': imagem,
       'descricao': descricao, 'status': status ,
       'createdAt': createdAt, 'createdIdUser': createdIdUser,
       'updatedAt': updatedAt, 'updatedIdUser': updatedIdUser
