@@ -1,6 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
+import 'package:giveandgetapp/pages/about/about.dart';
 import 'package:giveandgetapp/shared/widgets/item_list.dart';
 import '../../shared/widgets/float_button.dart';
 
@@ -15,14 +16,15 @@ class _HomeState extends State<Home> {
   @override
   Widget build(BuildContext context) {
 
-    final size = MediaQuery.of(context).size;
     return Scaffold(
       appBar: AppBar(
         backgroundColor: Colors.blue,
         leading: IconButton(
           icon: Icon(Icons.accessibility_new, color: Colors.white,),
           onPressed: (){
-
+            Navigator.push(context,
+                MaterialPageRoute(builder: (context)=>About())
+            );
         },),
         actions: [
           IconButton(onPressed: (){}, icon: Icon(Icons.person), color: Colors.white,)

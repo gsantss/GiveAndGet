@@ -28,13 +28,13 @@ class _RegisterState extends State<Register> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.black,
+      backgroundColor: Colors.blue,
       body: Column(
         children: [
           Container(
             width: MediaQuery.of(context).size.width,
             decoration: BoxDecoration(
-              color: Colors.black,
+              color: Colors.blue,
               image: DecorationImage(
                   image: AssetImage("background"), fit: BoxFit.cover),
             ),

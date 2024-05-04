@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:giveandgetapp/pages/product/product_detail.dart';
 
 class FloatButton extends StatelessWidget {
   const FloatButton({super.key});
@@ -8,7 +9,9 @@ class FloatButton extends StatelessWidget {
     return Container(
       child: InkWell(
         onTap: (){
-
+          Navigator.push(context,
+              MaterialPageRoute(builder: (context)=> productDetail())
+          );
         },
         child: Container(
           width: 60,

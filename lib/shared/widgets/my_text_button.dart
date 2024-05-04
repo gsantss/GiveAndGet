@@ -17,7 +17,7 @@ class MyTextButton extends StatelessWidget {
       child: Container(
         padding: EdgeInsets.all(20),
         decoration: BoxDecoration(
-            color: Colors.black,
+            color: Colors.blue,
             borderRadius: BorderRadius.only(
               topLeft: Radius.circular(16),
               bottomLeft: Radius.circular(16),

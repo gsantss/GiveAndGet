@@ -26,14 +26,14 @@ class _LoginState extends State<Login> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.black,
+      backgroundColor: Colors.blue,
       body: Column(
         children: [
           Container(
             width: MediaQuery.of(context).size.width,
             height: MediaQuery.of(context).size.height * .3,
             decoration: BoxDecoration(
-              color: Colors.black,
+              color: Colors.blue,
               image: DecorationImage(
                   image: AssetImage("background"), fit: BoxFit.cover),
             ),
