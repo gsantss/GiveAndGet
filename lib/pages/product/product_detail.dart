@@ -1,5 +1,15 @@
+import 'dart:ffi';
+
 import 'package:flutter/material.dart';
 import 'package:giveandgetapp/pages/home/home_page.dart';
+
+class ComunityList {
+  String label = '';
+  int value = 0;
+
+  ComunityList(this.label, this.value);
+}
+
 
 class productDetail extends StatefulWidget {
   @override
@@ -7,18 +17,25 @@ class productDetail extends StatefulWidget {
 }
 
 class _productDetailScreenState extends State<productDetail> {
+  final int _idUsuario = 0;
   String nome = '';
   String descricao = '';
-  String comunidadeSelecionada = 'Comunidades';
+  int comunidadeSelecionada = 0;
+  final bool _status = true;
+  final DateTime _createdAt = DateTime.now();
+  final int _createdIdUser = 0;
+  final DateTime _updatedAt = DateTime.now();
+  final int _updatedIdUser = 0;
 
-  final List<String> comunidades = [
-    'Comunidades',
-    'PUC-MG',
-    'PUC-RJ',
-    'UFMG',
-    'USP',
-    'UFOP',
-    'Outros',
+
+  final List<ComunityList> comunidades = [
+    ComunityList('Comunidades', 0),
+    ComunityList('PUC-MG', 2),
+    ComunityList('PUC-RJ', 3),
+    ComunityList('UFMG', 4),
+    ComunityList('USP', 5),
+    ComunityList('UFOP', 6),
+    ComunityList('Outros', 1)
   ];
 
   @override
@@ -93,16 +110,16 @@ class _productDetailScreenState extends State<productDetail> {
                 DropdownButtonFormField(
                   value: comunidadeSelecionada,
                   hint: Text(
-                      'Selecione uma comunidade'), // Adiciona uma dica ao campo
+                      'Selecione uma comunidade'),
                   items: comunidades.map((comunidade) {
                     return DropdownMenuItem(
-                      value: comunidade,
-                      child: Text(comunidade),
+                      value: comunidade.value,
+                      child: Text(comunidade.label),
                     );
                   }).toList(),
                   onChanged: (value) {
                     setState(() {
-                      comunidadeSelecionada = value.toString();
+                      comunidadeSelecionada = value!;
                     });
                   },
                 ),
