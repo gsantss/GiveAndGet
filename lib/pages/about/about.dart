@@ -2,55 +2,54 @@ import 'package:flutter/material.dart';
 
 import '../home/home_page.dart';
 
-class About extends StatefulWidget {
-  @override
-  _AboutScreenApp createState() => _AboutScreenApp();
+class About extends StatefulWidget { // Criação da classe About que é uma extensão de StatefulWidget
+  @override //Sobescreve sobre a classe padrão
+  _AboutScreenApp createState() => _AboutScreenApp(); //Cria um objeto de estado que é associado ao widget
 }
 
 class _AboutScreenApp extends State<About> {
   @override
   Widget build(BuildContext context) {
-      return Scaffold(
-        backgroundColor: Colors.blue,
-        body: Stack(
-          children: [
-            Container(
-              color: Colors.blue,
-              height: 100,
-              alignment: Alignment.center,
-              child: Padding(
-                padding: const EdgeInsets.only(top: 40, left: 10, right: 120),
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    GestureDetector(
-                        onTap: (){
-                          print("Opa Mosh Mosh");
-                          Navigator.push(context,
-                              MaterialPageRoute(builder: (context)=>Home())
-                          );
-                        },
-                        child: Icon(Icons.keyboard_arrow_left, color: Colors.white, size: 40,)
+    return Scaffold(
+      backgroundColor: Colors.blue,
+      body: Column(  // Alterado de Stack para Column
+        children: [
+          Container(
+            color: Colors.blue,
+            height: 100,
+            width: double.infinity,
+            alignment: Alignment.center,
+            child: Padding(
+              padding: const EdgeInsets.only(top: 40),
+              child: Row(
+                children: [
+                  GestureDetector(
+                      onTap: () {
+                        Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => Home()));
+                      },
+                      child: Icon(Icons.keyboard_arrow_left, color: Colors.white, size: 40,)
+                  ),
+                  Text(
+                    'SAIBA MAIS',
+                    style: TextStyle(
+                      fontSize: 24,
+                      color: Colors.white,
+                      fontWeight: FontWeight.bold,
                     ),
-                    Text(
-                      'SAIBA MAIS',
-                      style: TextStyle(
-                        fontSize: 24,
-                        color: Colors.white,
-                        fontWeight: FontWeight.bold,
-                      ),
-                    ),
-                  ],
-                ),
-
+                  ),
+                ],
               ),
             ),
-            InformacoesLayout(),
-          ],
-        ),
-      );
+          ),
+          Expanded(  // Usado para ocupar o espaço restante
+            child: InformacoesLayout(),
+          ),
+        ],
+      ),
+    );
   }
 }
+
 
 class InformacoesLayout extends StatelessWidget {
   @override

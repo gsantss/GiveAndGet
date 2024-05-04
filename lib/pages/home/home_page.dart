@@ -4,6 +4,7 @@ import 'package:flutter/widgets.dart';
 import 'package:giveandgetapp/pages/about/about.dart';
 import 'package:giveandgetapp/shared/widgets/item_list.dart';
 import '../../shared/widgets/float_button.dart';
+import '../authentication/login/login_page.dart';
 
 class Home extends StatefulWidget {
   const Home({super.key});
@@ -35,7 +36,16 @@ class _HomeState extends State<Home> {
             );
         },),
         actions: [
-          IconButton(onPressed: (){}, icon: Icon(Icons.person), color: Colors.white,)
+          IconButton(
+            onPressed: () {
+              Navigator.push(
+                context,
+                MaterialPageRoute(builder: (context) => Login()),
+              );
+            },
+            icon: Icon(Icons.person),
+            color: Colors.white,
+          )
         ],
       ),
       backgroundColor: Colors.grey[200],

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:giveandgetapp/pages/authentication/login/login_page.dart';
+import 'package:giveandgetapp/pages/home/home_page.dart';
 
 void main() {
   runApp(MyApp());
@@ -18,7 +19,7 @@ class _MyAppState extends State<MyApp> {
         primaryColor: Color(0xFF1A237E),
       ),
       debugShowCheckedModeBanner: false,
-      home: Login(),
+      home: Home(),
     );
   }
 }
