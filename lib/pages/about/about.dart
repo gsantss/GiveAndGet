@@ -55,7 +55,6 @@ class InformacoesLayout extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return ListView(
-      padding: EdgeInsets.only(top: 100),
       children: [
         CaixaInformacao(
           titulo: 'Do que se trata o App Give&Get?',
