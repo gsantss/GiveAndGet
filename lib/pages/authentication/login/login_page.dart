@@ -35,7 +35,7 @@ class _LoginState extends State<Login> {
             decoration: BoxDecoration(
               color: Colors.blue,
               image: DecorationImage(
-                  image: AssetImage("lib/assets/images/background_GG.jpg"), fit: BoxFit.cover),
+                  image: AssetImage("lib/assets/images/backgroung_GG.jpg"), fit: BoxFit.cover),
             ),
             child: Center(
               child: Image(

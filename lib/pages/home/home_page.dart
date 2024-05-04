@@ -4,6 +4,7 @@ import 'package:flutter/widgets.dart';
 import 'package:giveandgetapp/pages/about/about.dart';
 import 'package:giveandgetapp/shared/widgets/item_list.dart';
 import '../../shared/widgets/float_button.dart';
+import '../authentication/login/login_page.dart';
 
 class Home extends StatefulWidget {
   const Home({super.key});
@@ -13,6 +14,14 @@ class Home extends StatefulWidget {
 }
 
 class _HomeState extends State<Home> {
+  List<Map<String, dynamic>> _produtos = [];
+  bool _atualizando = true;
+
+  final int _idUsuario = 0;
+  final TextEditingController _imagem = TextEditingController();
+  final TextEditingController _descricao = TextEditingController();
+  final bool _status = true;
+
   @override
   Widget build(BuildContext context) {
 
@@ -27,7 +36,16 @@ class _HomeState extends State<Home> {
             );
         },),
         actions: [
-          IconButton(onPressed: (){}, icon: Icon(Icons.person), color: Colors.white,)
+          IconButton(
+            onPressed: () {
+              Navigator.push(
+                context,
+                MaterialPageRoute(builder: (context) => Login()),
+              );
+            },
+            icon: Icon(Icons.person),
+            color: Colors.white,
+          )
         ],
       ),
       backgroundColor: Colors.grey[200],

@@ -36,7 +36,8 @@ class _RegisterState extends State<Register> {
             decoration: BoxDecoration(
               color: Colors.blue,
               image: DecorationImage(
-                  image: AssetImage("background"), fit: BoxFit.cover),
+                  image: AssetImage("lib/assets/images/backgroung_GG.jpg"), // Caminho correto da imagem
+                  fit: BoxFit.cover),
             ),
             child: SafeArea(
               child: Container(
