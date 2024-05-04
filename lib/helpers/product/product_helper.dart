@@ -37,15 +37,16 @@ updatedIdUser INTEGER NOT NULL
         conflictAlgorithm: sql.ConflictAlgorithm.replace);
     return id;
   }
+
   static Future<List<Map<String, dynamic>>> getAllProducts() async {
     final db = await ProductHelper.db();
     return db.query('tbProdutos', orderBy: "id");
   }
+
   static Future<List<Map<String, dynamic>>> getProductById(int id) async {
     final db = await ProductHelper.db();
     return db.query('tbProdutos', where: "id = ?", whereArgs: [id], limit: 1);
   }
-
 
 }
 
