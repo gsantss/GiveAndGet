@@ -1,6 +1,9 @@
+import 'dart:ui';
+
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
+import 'package:giveandgetapp/helpers/product/product_helper.dart';
 import 'package:giveandgetapp/pages/about/about.dart';
 import 'package:giveandgetapp/shared/widgets/item_list.dart';
 import '../../shared/widgets/float_button.dart';
@@ -13,6 +16,8 @@ class Home extends StatefulWidget {
   State<Home> createState() => _HomeState();
 }
 
+
+
 class _HomeState extends State<Home> {
   List<Map<String, dynamic>> _produtos = [];
   bool _atualizando = true;
@@ -21,6 +26,19 @@ class _HomeState extends State<Home> {
   final TextEditingController _imagem = TextEditingController();
   final TextEditingController _descricao = TextEditingController();
   final bool _status = true;
+
+  @override
+  void initState() {
+    super.initState();
+    _getProducts();
+  }
+
+  void _getProducts() async {
+    final data = await ProductHelper.getAllProducts();
+    setState(() {
+      _produtos = data;
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -77,19 +95,38 @@ class _HomeState extends State<Home> {
           ),
           Expanded(
 
-            child: ListView.separated(
-                itemCount: 30,
-                itemBuilder: (BuildContext context, int index){
-              return ItemList();
-            }, separatorBuilder: (BuildContext context, int index) {
-                  return Container(height: 7,);
-            },),
-          ),
+            child: ListView.builder(
+                itemCount: _produtos.length,
+                itemBuilder: (context, int index) =>
+               Card(
+                child: ListTile(
+                  title: Column(
+                    children: [
+                      Text("${_produtos[index]['descricao']}",
+                      style: const TextStyle(
+                        fontWeight: FontWeight.bold,
+                        fontSize: 10
+                      ),),
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.start,
+                        children: [
+                          Image.asset('lib/assets/images/backgroung_GG.jpg',
+                            width: 130,
+                            height: 150,
+                            fit: BoxFit.cover,),
+
+                        ],
+                      )
+                    ],
+                  ),
+                )
+              )
+    ),),
 
         ],
       ),
         floatingActionButtonLocation: FloatingActionButtonLocation.endFloat,
       floatingActionButton: FloatButton(),
     );
-  }
+}
 }
