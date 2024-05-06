@@ -19,7 +19,7 @@ class _MyAppState extends State<MyApp> {
         primaryColor: Color(0xFF1A237E),
       ),
       debugShowCheckedModeBanner: false,
-      home: Home(),
+      home: Login(),
     );
   }
 }

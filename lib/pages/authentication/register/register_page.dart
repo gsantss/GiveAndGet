@@ -3,6 +3,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
+import 'package:giveandgetapp/helpers/register/register_helper.dart';
 import 'package:giveandgetapp/pages/authentication/login/login_page.dart';
 
 import '../../../shared/widgets/my_input_field.dart';
@@ -96,7 +97,7 @@ class _RegisterState extends State<Register> {
                       SizedBox(height: 20),
                       MyTextButton(label: "Registrar",
                         onTap: (){
-                          print(this.emailController.text + "|" + this.passwordController.text);
+                        RegisterHelper.saveDados(cpfController.text, firstNameController.text, lastNameController.text, emailController.text, passwordController.text);
                         },
                       ),
                       SizedBox(height: 40,),

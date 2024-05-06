@@ -82,7 +82,7 @@ class _productDetailScreenState extends State<productDetail> {
                     aspectRatio:
                     5 / 5,
                     child: Image.asset(
-                      "assets/Imagens.png",
+                      "lib/assets/background_GG.jpg",
                       fit: BoxFit.cover,
                     ),
                   ),
