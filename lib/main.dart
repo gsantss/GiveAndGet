@@ -8,7 +8,7 @@ void main() {
 
 class MyApp extends StatefulWidget {
   @override
-  _MyAppState createState() => _MyAppState();
+   _MyAppState createState() => _MyAppState();
 }
 
 class _MyAppState extends State<MyApp> {
@@ -19,7 +19,7 @@ class _MyAppState extends State<MyApp> {
         primaryColor: Color(0xFF1A237E),
       ),
       debugShowCheckedModeBanner: false,
-      home: Home(),
+      home: Login(),
     );
   }
 }
