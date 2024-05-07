@@ -1,6 +1,7 @@
-import 'dart:ffi';
+//import 'dart:ffi';
 
 import 'package:flutter/material.dart';
+import 'package:giveandgetapp/helpers/product/product_helper.dart';
 import 'package:giveandgetapp/pages/home/home_page.dart';
 
 class ComunityList {
@@ -17,16 +18,12 @@ class productDetail extends StatefulWidget {
 }
 
 class _productDetailScreenState extends State<productDetail> {
+  final GlobalKey<ScaffoldMessengerState> scaffoldMessengerKey = GlobalKey<ScaffoldMessengerState>();
   final int _idUsuario = 0;
   String nome = '';
   String descricao = '';
   int comunidadeSelecionada = 0;
   final bool _status = true;
-  final DateTime _createdAt = DateTime.now();
-  final int _createdIdUser = 0;
-  final DateTime _updatedAt = DateTime.now();
-  final int _updatedIdUser = 0;
-
 
   final List<ComunityList> comunidades = [
     ComunityList('Comunidades', 0),
@@ -38,24 +35,53 @@ class _productDetailScreenState extends State<productDetail> {
     ComunityList('Outros', 1)
   ];
 
+  void _addProduct() async {
+    print("Adicionando produto...");
+    if (nome.isNotEmpty && descricao.isNotEmpty && comunidadeSelecionada != 0) {
+      print("Dados validados com sucesso.");
+      int productId = await ProductHelper.addProduct(
+          _idUsuario,
+          comunidadeSelecionada,
+          "assets/Imagens.png",
+          nome,
+          _status
+      );
+
+      print("ID do produto adicionado: $productId");
+      if (productId != 0) {
+        ScaffoldMessenger.of(context).showSnackBar(
+            SnackBar(content: Text("Produto adicionado com sucesso!"))
+        );
+        Navigator.pop(context, true); // Retorna true se um produto foi adicionado
+      } else {
+        ScaffoldMessenger.of(context).showSnackBar(
+            SnackBar(content: Text("Falha ao adicionar produto."))
+        );
+      }
+    } else {
+      ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(content: Text("Nome, descrição e comunidade são obrigatórios."))
+      );
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
+      scaffoldMessengerKey: scaffoldMessengerKey, // Adicione isso
       debugShowCheckedModeBanner: false,
       theme: ThemeData(
-        primaryColor: const Color.fromARGB(255, 9, 12, 14), 
+        primaryColor: const Color.fromARGB(255, 9, 12, 14),
         scaffoldBackgroundColor: Colors.white,
       ),
       home: Scaffold(
-
         appBar: AppBar(
-
           backgroundColor: Colors.blue,
           title: Row(
             children: [
               GestureDetector(
                   onTap: (){
-                    Navigator.push(context,
+                    Navigator.pop(context,
                         MaterialPageRoute(builder: (context)=>Home())
                     );
                   },
@@ -70,30 +96,22 @@ class _productDetailScreenState extends State<productDetail> {
         ),
         body: SingleChildScrollView(
           child: Padding(
-            padding: const EdgeInsets.fromLTRB(
-                20.0, 20.0, 20.0, 80.0),
+            padding: const EdgeInsets.fromLTRB(20.0, 20.0, 20.0, 80.0),
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.stretch,
               children: [
                 GestureDetector(
-                  onTap: () {
-                  },
+                  onTap: () {},
                   child: AspectRatio(
-                    aspectRatio:
-                    5 / 5,
-                    child: Image.asset(
-                      "assets/Imagens.png",
-                      fit: BoxFit.cover,
-                    ),
+                    aspectRatio: 5 / 5,
+                    child: Image.asset("lib/assets/images/hands.png", fit: BoxFit.cover),
                   ),
                 ),
                 SizedBox(height: 50),
                 TextFormField(
                   decoration: InputDecoration(labelText: 'Nome do Item'),
                   onChanged: (value) {
-                    setState(() {
-                      nome = value;
-                    });
+                    setState(() { nome = value; });
                   },
                 ),
                 SizedBox(height: 20),
@@ -101,16 +119,13 @@ class _productDetailScreenState extends State<productDetail> {
                   decoration: InputDecoration(labelText: 'Descrição'),
                   maxLines: null,
                   onChanged: (value) {
-                    setState(() {
-                      descricao = value;
-                    });
+                    setState(() { descricao = value; });
                   },
                 ),
                 SizedBox(height: 20),
                 DropdownButtonFormField(
                   value: comunidadeSelecionada,
-                  hint: Text(
-                      'Selecione uma comunidade'),
+                  hint: Text('Selecione uma comunidade'),
                   items: comunidades.map((comunidade) {
                     return DropdownMenuItem(
                       value: comunidade.value,
@@ -118,27 +133,18 @@ class _productDetailScreenState extends State<productDetail> {
                     );
                   }).toList(),
                   onChanged: (value) {
-                    setState(() {
-                      comunidadeSelecionada = value!;
-                    });
+                    setState(() { comunidadeSelecionada = value!; });
                   },
                 ),
                 SizedBox(height: 20),
                 ElevatedButton(
                   style: ButtonStyle(
-                    backgroundColor: MaterialStateProperty.all<Color>(
-                      Colors.blue,
-                    ),
+                    backgroundColor: MaterialStateProperty.all<Color>(Colors.blue),
                   ),
-                  onPressed: () {
-                    // Lógica para productDetail o item
-                    print('Nome: $nome');
-                    print('Descrição: $descricao');
-                    print('Comunidade: $comunidadeSelecionada');
-                  },
+                  onPressed: _addProduct,
                   child: Text(
                     'Adicionar',
-                    style: TextStyle(color: Colors.white), // Cor do texto do botão
+                    style: TextStyle(color: Colors.white),
                   ),
                 ),
               ],

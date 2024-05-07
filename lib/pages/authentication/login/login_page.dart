@@ -39,7 +39,7 @@ class _LoginState extends State<Login> {
             ),
             child: Center(
               child: Image(
-                image: AssetImage("logo"),
+                image: AssetImage("lib/assets/images/hands.png"),
                 width: 100,
               ),
             ),

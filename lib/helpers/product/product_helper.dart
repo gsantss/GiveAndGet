@@ -1,4 +1,4 @@
-import 'package:flutter/foundation.dart';
+
 import 'package:sqflite/sqflite.dart' as sql;
 
 class ProductHelper {
@@ -9,11 +9,7 @@ idUsuario INTEGER,
 idComunidade INTEGER DEFAULT 1,
 imagem TEXT,
 descricao TEXT,
-status BOOLEAN,
-createdAt TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
-createdIdUser INTEGER NOT NULL,
-updatedAt TIMESTAMP,
-updatedIdUser INTEGER NOT NULL
+status BOOLEAN
 ); """);
   }
 
@@ -27,16 +23,26 @@ updatedIdUser INTEGER NOT NULL
     );
   }
 
-  static Future<int> addProduct(int idUser, int idComunidade, String imagem, String descricao, bool status, DateTime createdAt, int createdIdUser, DateTime updatedAt, int updatedIdUser) async {
+  static Future<int> addProduct(int idUser, int idComunidade, String imagem, String descricao, bool status) async {
     final db = await ProductHelper.db();
     final dados = {'idUsuario': idUser, 'idComunidade': idComunidade, 'imagem': imagem,
-      'descricao': descricao, 'status': status ,
-      'createdAt': createdAt, 'createdIdUser': createdIdUser,
-      'updatedAt': updatedAt, 'updatedIdUser': updatedIdUser
+      'descricao': descricao, 'status': status
     };
     final id = await db.insert('tbProdutos', dados,
         conflictAlgorithm: sql.ConflictAlgorithm.replace);
     return id;
+  }
+
+  static Future<int> updateProduct(int id, int idUser, int idComunidade, String imagem, String descricao, bool status) async {
+    final db = await ProductHelper.db();
+    final dados = {
+      'idUsuario': idUser,
+      'idComunidade': idComunidade,
+      'imagem': imagem,
+      'descricao': descricao,
+      'status': status
+    };
+    return await db.update('tbProdutos', dados, where: 'id = ?', whereArgs: [id]);
   }
 
   static Future<List<Map<String, dynamic>>> getAllProducts() async {
@@ -49,6 +55,9 @@ updatedIdUser INTEGER NOT NULL
     return db.query('tbProdutos', where: "id = ?", whereArgs: [id], limit: 1);
   }
 
+  // Método para excluir um produto pelo id
+  static Future<int> deleteProduct(int id) async {
+    final db = await ProductHelper.db();
+    return await db.delete('tbProdutos', where: 'id = ?', whereArgs: [id]);
+  }
 }
-
-
