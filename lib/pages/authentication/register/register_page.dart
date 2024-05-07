@@ -29,7 +29,7 @@ class _RegisterState extends State<Register> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.blue,
+      backgroundColor: Colors.lightBlue.shade100,
       body: Column(
         children: [
           Container(
@@ -55,13 +55,13 @@ class _RegisterState extends State<Register> {
                               MaterialPageRoute(builder: (context)=>Login())
                           );
                         },
-                        child: Icon(Icons.keyboard_arrow_left, color: Colors.white, size: 40,)
+                        child: Icon(Icons.keyboard_arrow_left, color: Colors.black, size: 40,)
                     ),
                     Text(
                       "CADASTRE-SE",
-                      style: TextStyle(fontSize: 32, color: Colors.white),
+                      style: TextStyle(fontSize: 32, color: Colors.black),
                     ),
-                    SizedBox(width: 24,),
+                    SizedBox(width: 20,),
                   ],
                 ),
               ),
@@ -71,7 +71,7 @@ class _RegisterState extends State<Register> {
             child: Container(
               decoration: BoxDecoration(
                   color: Colors.white,
-                  borderRadius: BorderRadius.only(topLeft: Radius.circular(64)),
+                  borderRadius: BorderRadius.only(topLeft: Radius.circular(85)),
               ),
               clipBehavior: Clip.antiAlias,
               child: SingleChildScrollView(
@@ -83,17 +83,17 @@ class _RegisterState extends State<Register> {
                   child: Column(
                     mainAxisAlignment: MainAxisAlignment.start,
                     children: [
-                      MyInputField(label: 'CPF', placeholder: '000.000.000-00', textEditingController: cpfController, isPasswordField: false),
+                      MyInputField(label: 'CPF', placeholder: '', textEditingController: cpfController, isPasswordField: false),
                       SizedBox(height: 20),
-                      MyInputField(label: 'Primeiro Nome', placeholder: 'Andressa', textEditingController: firstNameController, isPasswordField: false),
+                      MyInputField(label: 'Primeiro Nome', placeholder: '', textEditingController: firstNameController, isPasswordField: false),
                       SizedBox(height: 20),
-                      MyInputField(label: 'Sobrenome', placeholder: 'Sousa', textEditingController: lastNameController, isPasswordField: false),
+                      MyInputField(label: 'Sobrenome', placeholder: '', textEditingController: lastNameController, isPasswordField: false),
                       SizedBox(height: 20),
-                      MyInputField(label: 'Email', placeholder: 'abc@gmail.com', textEditingController: emailController, isPasswordField: false),
+                      MyInputField(label: 'Email', placeholder: '', textEditingController: emailController, isPasswordField: false),
                       SizedBox(height: 20),
-                      MyInputField(label: 'Senha', placeholder: '*********', textEditingController: passwordController, isPasswordField: true),
+                      MyInputField(label: 'Senha', placeholder: '', textEditingController: passwordController, isPasswordField: true),
                       SizedBox(height: 20),
-                      MyInputField(label: 'Confirmar Senha', placeholder: '*********', textEditingController: passwordController, isPasswordField: true),
+                      MyInputField(label: 'Confirmar Senha', placeholder: '', textEditingController: passwordController, isPasswordField: true),
                       SizedBox(height: 20),
                       MyTextButton(label: "Registrar",
                         onTap: (){
