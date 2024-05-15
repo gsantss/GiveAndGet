@@ -12,12 +12,16 @@ class ComunityList {
 }
 
 
+
 class productDetail extends StatefulWidget {
   @override
   _productDetailScreenState createState() => _productDetailScreenState();
 }
 
+
+
 class _productDetailScreenState extends State<productDetail> {
+
   final GlobalKey<ScaffoldMessengerState> scaffoldMessengerKey = GlobalKey<ScaffoldMessengerState>();
   final int _idUsuario = 0;
   String nome = '';
@@ -36,9 +40,8 @@ class _productDetailScreenState extends State<productDetail> {
   ];
 
   void _addProduct() async {
-    print("Adicionando produto...");
     if (nome.isNotEmpty && descricao.isNotEmpty && comunidadeSelecionada != 0) {
-      print("Dados validados com sucesso.");
+
       int productId = await ProductHelper.addProduct(
           _idUsuario,
           comunidadeSelecionada,
@@ -47,7 +50,6 @@ class _productDetailScreenState extends State<productDetail> {
           _status
       );
 
-      print("ID do produto adicionado: $productId");
       if (productId != 0) {
         ScaffoldMessenger.of(context).showSnackBar(
             SnackBar(content: Text("Produto adicionado com sucesso!"))

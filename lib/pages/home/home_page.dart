@@ -25,24 +25,48 @@ class _HomeState extends State<Home> {
 
   void _loadProducts() async {
     final db = await ProductHelper.db();
-    final List<Map<String, dynamic>> productsList = await db.query('tbProdutos', orderBy: "id");
+    final List<Map<String, dynamic>> productsList = await db.query('tbProdutos', orderBy: 'id');
     setState(() {
       _produtos = productsList;
       _atualizando = false;
     });
   }
 
-  void _openProductDetail() async {
-    final result = await Navigator.push(
-      context,
-      MaterialPageRoute(builder: (context) => productDetail()),
-    );
+  void _showProductDetails(BuildContext context, Map<String, dynamic> produto) {
+    print("Produto selecionado: ${produto.toString()}"); // Log de depuração
 
-    // Checa se result é true, o que significa que um produto foi adicionado
-    if (result == true) {
-      _loadProducts(); // Re-carrega a lista de produtos para refletir a nova adição
-    }
+    showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        return AlertDialog(
+          title: Text(produto['nome'] ?? "Detalhes do Produto"),
+          content: SingleChildScrollView(
+            child: ListBody(
+              children: <Widget>[
+                Text("Descrição: ${produto['descricao']}"),
+                SizedBox(height: 10),
+                Text("Estado: ${produto['status'] == 1 ? "Disponível" : "Indisponível"}"),
+                SizedBox(height: 10),
+                produto['imagem'] != null
+                    ? Image.network(produto['imagem'])
+                    : SizedBox(height: 50, child: Center(child: Text("Nenhuma imagem disponível"))),
+              ],
+            ),
+          ),
+          actions: <Widget>[
+            TextButton(
+              onPressed: () {
+                Navigator.of(context).pop();
+                print("Dialog closed"); // Log ao fechar o diálogo
+              },
+              child: Text('Fechar'),
+            ),
+          ],
+        );
+      },
+    );
   }
+
 
   @override
   Widget build(BuildContext context) {
@@ -99,22 +123,38 @@ class _HomeState extends State<Home> {
               itemCount: _produtos.length,
               itemBuilder: (BuildContext context, int index) {
                 var produto = _produtos[index];
-                return ItemList(
-                  title: produto['nome'], // Certifique-se de que este campo corresponde ao banco de dados
-                  description: produto['descricao'], // Certifique-se de que este campo corresponde ao banco de dados
-                  image: produto['imagem'], // A imagem precisa ser uma URL ou caminho local válido
-                  community: produto['comunidade'], // Este campo também precisa ser extraído do banco
+                var state = produto['status'] == 1 ? "disponível" : "indisponível";
+
+                return GestureDetector(
+                  onTap: () {
+                    print("Tapped on item $index"); // Log de depuração
+                    _showProductDetails(context, produto);
+                  },
+                  child: ItemList(
+                    id: produto['id'],
+                    title: "Give&Get", // Assume-se que este campo corresponde ao banco de dados
+                    description: produto['descricao'],
+                    image: produto['imagem'],
+                    community: state,
+                  ),
                 );
               },
-              separatorBuilder: (BuildContext context, int index) {
-                return Container(height: 10);
-              },
+
+              separatorBuilder: (BuildContext context, int index) => Container(height: 10),
             ),
           ),
         ],
       ),
       floatingActionButton: FloatingActionButton(
-        onPressed: _openProductDetail,
+        onPressed: () {
+          Navigator.push(context,
+            MaterialPageRoute(builder: (context) => productDetail()),
+          ).then((value) {
+            if (value == true) {
+              _loadProducts(); // Re-carrega a lista de produtos
+            }
+          });
+        },
         tooltip: 'Adicionar Produto',
         child: Icon(Icons.add),
       ),

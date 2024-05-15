@@ -33,7 +33,7 @@ status BOOLEAN
     return id;
   }
 
-  static Future<int> updateProduct(int id, int idUser, int idComunidade, String imagem, String descricao, bool status) async {
+  static Future<int> updateProduct(int? id, int idUser, int idComunidade, String imagem, String descricao, bool status) async {
     final db = await ProductHelper.db();
     final dados = {
       'idUsuario': idUser,

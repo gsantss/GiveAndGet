@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:giveandgetapp/helpers/product/product_helper.dart';
 
 class ItemList extends StatelessWidget {
+  final int? id;
   final String title;
   final String description;
   final String image;
@@ -8,17 +10,30 @@ class ItemList extends StatelessWidget {
 
   const ItemList({
     Key? key,
+    this.id,
     required this.title,
     required this.description,
     required this.image,
     required this.community,
   }) : super(key: key);
 
+  void getProductById(int idProd) async {
+    int productId = idProd; // ID do produto que você deseja buscar
+    var product = await ProductHelper.getProductById(productId);
+    print("Produto obtido: $product");
+  }
+
+  void deleteProductById(int idProd) async {
+    int productId = idProd; // ID do produto que você deseja buscar
+    await ProductHelper.deleteProduct(productId);
+  }
+  
   @override
   Widget build(BuildContext context) {
+
     return GestureDetector(
       onTap: () {
-        print("Item selecionado: $title");
+        deleteProductById(id!);
       },
       child: Container(
         decoration: BoxDecoration(
@@ -36,11 +51,15 @@ class ItemList extends StatelessWidget {
         padding: const EdgeInsets.all(8),
         child: Row(
           children: [
-            Image.network(
-              image,
-              width: 100,
-              height: 100,
-              fit: BoxFit.cover,
+            Container(
+              child: Expanded(
+                child: Image.asset(
+                  "lib/assets/images/hands.png",
+                  width: 100,
+                  height: 100,
+                  fit: BoxFit.cover,
+                ),
+              ),
             ),
             Expanded(
               child: Padding(
@@ -50,7 +69,7 @@ class ItemList extends StatelessWidget {
                   children: [
                     Text(title, style: TextStyle(fontWeight: FontWeight.bold)),
                     Text(description),
-                    Text(community, style: TextStyle(color: Colors.blue)),
+                    Text("${community}", style: TextStyle(color: Colors.blue)),
                   ],
                 ),
               ),
