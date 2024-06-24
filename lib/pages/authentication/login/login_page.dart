@@ -1,10 +1,6 @@
-// ignore_for_file: prefer_const_constructors
-
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 import 'package:giveandgetapp/pages/home/home_page.dart';
-
 import '../../../shared/widgets/my_input_field.dart';
 import '../../../shared/widgets/my_text_button.dart';
 import '../register/register_page.dart';
@@ -19,10 +15,12 @@ class Login extends StatefulWidget {
 class _LoginState extends State<Login> {
   final TextEditingController emailController = TextEditingController();
   final TextEditingController passwordController = TextEditingController();
+
   @override
   void initState(){
     super.initState();
   }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -49,7 +47,7 @@ class _LoginState extends State<Login> {
               decoration: BoxDecoration(
                   color: Colors.white,
                   borderRadius:
-                      BorderRadius.only(topLeft: Radius.circular(64))),
+                  BorderRadius.only(topLeft: Radius.circular(64))),
               clipBehavior: Clip.antiAlias,
               child: SingleChildScrollView(
                 child: Padding(
@@ -76,12 +74,13 @@ class _LoginState extends State<Login> {
                               SizedBox(height: 40),
                               MyInputField(label: 'Senha', placeholder: '*********', textEditingController: passwordController, isPasswordField: true),
                               SizedBox(height: 40),
-                              MyTextButton(label: "LOGIN",
-                              onTap: (){
-                                Navigator.push(context,
-                                    MaterialPageRoute(builder: (context)=>Home())
-                                );
-                              },
+                              MyTextButton(
+                                label: "LOGIN",
+                                onTap: (){
+                                  Navigator.push(context,
+                                      MaterialPageRoute(builder: (context)=>Home())
+                                  );
+                                },
                               )
                             ],
                           ),
@@ -97,7 +96,7 @@ class _LoginState extends State<Login> {
                               GestureDetector(
                                 onTap: (){
                                   Navigator.push(context,
-                                    MaterialPageRoute(builder: (context)=>Register())
+                                      MaterialPageRoute(builder: (context)=>Register())
                                   );
                                 },
                                 child: Text(
@@ -120,4 +119,3 @@ class _LoginState extends State<Login> {
     );
   }
 }
-

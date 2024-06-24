@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:giveandgetapp/helpers/product/product_helper.dart';
+import 'package:giveandgetapp/pages/product/product_detail.dart';
 
 class ItemList extends StatelessWidget {
   final int? id;
@@ -17,23 +18,70 @@ class ItemList extends StatelessWidget {
     required this.community,
   }) : super(key: key);
 
-  void getProductById(int idProd) async {
-    int productId = idProd; // ID do produto que você deseja buscar
-    var product = await ProductHelper.getProductById(productId);
-    print("Produto obtido: $product");
+  void _showProductDetails(BuildContext context) {
+    showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        return AlertDialog(
+          title: Text(title),  // Exibindo o nome do produto
+          content: Column(
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              Image.asset(image),
+              SizedBox(height: 10),
+              Text("Descrição: $description"),  // Exibindo a descrição do produto
+              SizedBox(height: 10),
+              Text("Comunidade: $community"),  // Exibindo a comunidade do produto
+            ],
+          ),
+          actions: [
+            TextButton(
+              onPressed: () {
+                Navigator.of(context).pop();
+              },
+              child: Text("Fechar"),
+            ),
+            TextButton(
+              onPressed: () {
+                Navigator.of(context).pop();
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                    builder: (context) => ProductDetail(product: {
+                      'id': id,
+                      'nome': title,
+                      'descricao': description,
+                      'idComunidade': community,
+                      'imagem': image
+                    }),
+                  ),
+                ).then((value) {
+                  if (value == true) {
+                    // Se precisar atualizar a lista de produtos após a atualização
+                  }
+                });
+              },
+              child: Text("Atualizar"),
+            ),
+            TextButton(
+              onPressed: () async {
+                await ProductHelper.deleteProduct(id!);
+                Navigator.of(context).pop();
+                // Se precisar atualizar a lista de produtos após a exclusão
+              },
+              child: Text("Excluir"),
+            ),
+          ],
+        );
+      },
+    );
   }
 
-  void deleteProductById(int idProd) async {
-    int productId = idProd; // ID do produto que você deseja buscar
-    await ProductHelper.deleteProduct(productId);
-  }
-  
   @override
   Widget build(BuildContext context) {
-
     return GestureDetector(
       onTap: () {
-        deleteProductById(id!);
+        _showProductDetails(context);
       },
       child: Container(
         decoration: BoxDecoration(
@@ -54,7 +102,7 @@ class ItemList extends StatelessWidget {
             Container(
               child: Expanded(
                 child: Image.asset(
-                  "lib/assets/images/hands.png",
+                  image,
                   width: 100,
                   height: 100,
                   fit: BoxFit.cover,
@@ -69,7 +117,7 @@ class ItemList extends StatelessWidget {
                   children: [
                     Text(title, style: TextStyle(fontWeight: FontWeight.bold)),
                     Text(description),
-                    Text("${community}", style: TextStyle(color: Colors.blue)),
+                    Text("$community", style: TextStyle(color: Colors.blue)),
                   ],
                 ),
               ),

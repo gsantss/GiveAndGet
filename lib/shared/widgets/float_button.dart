@@ -10,7 +10,7 @@ class FloatButton extends StatelessWidget {
       child: InkWell(
         onTap: (){
           Navigator.push(context,
-              MaterialPageRoute(builder: (context)=> productDetail())
+              MaterialPageRoute(builder: (context)=> ProductDetail())
           );
         },
         child: Container(

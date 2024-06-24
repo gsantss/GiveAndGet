@@ -21,10 +21,12 @@ class _RegisterState extends State<Register> {
   final TextEditingController lastNameController = TextEditingController();
   final TextEditingController emailController = TextEditingController();
   final TextEditingController passwordController = TextEditingController();
+
   @override
   void initState(){
     super.initState();
   }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -41,26 +43,24 @@ class _RegisterState extends State<Register> {
             ),
             child: SafeArea(
               child: Container(
-                padding: EdgeInsets.symmetric(
-                    horizontal: 30
-                ),
+                padding: EdgeInsets.symmetric(horizontal: 30),
                 height: 80,
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
                     GestureDetector(
-                        onTap: (){
+                        onTap: () {
                           Navigator.push(context,
-                              MaterialPageRoute(builder: (context)=>Login())
+                              MaterialPageRoute(builder: (context) => Login())
                           );
                         },
-                        child: Icon(Icons.keyboard_arrow_left, color: Colors.white, size: 40,)
+                        child: Icon(Icons.keyboard_arrow_left, color: Colors.white, size: 40)
                     ),
                     Text(
                       "CADASTRE-SE",
                       style: TextStyle(fontSize: 32, color: Colors.white),
                     ),
-                    SizedBox(width: 24,),
+                    SizedBox(width: 24),
                   ],
                 ),
               ),
@@ -69,16 +69,13 @@ class _RegisterState extends State<Register> {
           Expanded(
             child: Container(
               decoration: BoxDecoration(
-                  color: Colors.white,
-                  borderRadius: BorderRadius.only(topLeft: Radius.circular(64)),
+                color: Colors.white,
+                borderRadius: BorderRadius.only(topLeft: Radius.circular(64)),
               ),
               clipBehavior: Clip.antiAlias,
               child: SingleChildScrollView(
                 child: Padding(
-                  padding: EdgeInsets.symmetric(
-                    horizontal: 30,
-                    vertical: 60,
-                  ),
+                  padding: EdgeInsets.symmetric(horizontal: 30, vertical: 60),
                   child: Column(
                     mainAxisAlignment: MainAxisAlignment.start,
                     children: [
@@ -94,12 +91,13 @@ class _RegisterState extends State<Register> {
                       SizedBox(height: 20),
                       MyInputField(label: 'Confirmar Senha', placeholder: '*********', textEditingController: passwordController, isPasswordField: true),
                       SizedBox(height: 20),
-                      MyTextButton(label: "Registrar",
-                        onTap: (){
+                      MyTextButton(
+                        label: "Registrar",
+                        onTap: () {
                           print(this.emailController.text + "|" + this.passwordController.text);
                         },
                       ),
-                      SizedBox(height: 40,),
+                      SizedBox(height: 40),
                       Row(
                         mainAxisAlignment: MainAxisAlignment.center,
                         crossAxisAlignment: CrossAxisAlignment.center,
@@ -109,12 +107,12 @@ class _RegisterState extends State<Register> {
                             style: TextStyle(fontSize: 18),
                           ),
                           GestureDetector(
-                            onTap: (){
+                            onTap: () {
                               Navigator.pushAndRemoveUntil(
                                   context,
-                                  MaterialPageRoute(
-                                      builder: (context) => Login())
-                                  , (route) => false);
+                                  MaterialPageRoute(builder: (context) => Login()),
+                                      (route) => false
+                              );
                             },
                             child: Text(
                               "Efetuar Login ",
@@ -134,4 +132,3 @@ class _RegisterState extends State<Register> {
     );
   }
 }
-

@@ -1,16 +1,18 @@
-
 import 'package:sqflite/sqflite.dart' as sql;
 
 class ProductHelper {
   static Future<void> criaTabela(sql.Database database) async {
-    await database.execute(""" CREATE TABLE tbProdutos(
-id INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL,
-idUsuario INTEGER,
-idComunidade INTEGER DEFAULT 1,
-imagem TEXT,
-descricao TEXT,
-status BOOLEAN
-); """);
+    await database.execute("""
+  CREATE TABLE tbProdutos(
+    id INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL,
+    idUsuario INTEGER,
+    idComunidade INTEGER DEFAULT 1,
+    imagem TEXT,
+    nome TEXT,
+    descricao TEXT,
+    status BOOLEAN
+  );
+  """);
   }
 
   static Future<sql.Database> db() async {
@@ -25,12 +27,20 @@ status BOOLEAN
 
   static Future<int> addProduct(int idUser, int idComunidade, String imagem, String descricao, bool status) async {
     final db = await ProductHelper.db();
-    final dados = {'idUsuario': idUser, 'idComunidade': idComunidade, 'imagem': imagem,
-      'descricao': descricao, 'status': status
+    final dados = {
+      'idUsuario': idUser,
+      'idComunidade': idComunidade,
+      'imagem': imagem,
+      'descricao': descricao,
+      'status': status
     };
-    final id = await db.insert('tbProdutos', dados,
-        conflictAlgorithm: sql.ConflictAlgorithm.replace);
+    final id = await db.insert('tbProdutos', dados, conflictAlgorithm: sql.ConflictAlgorithm.replace);
     return id;
+  }
+
+  static Future<List<Map<String, dynamic>>> getAllProducts() async {
+    final db = await ProductHelper.db();
+    return db.query('tbProdutos', orderBy: "id");
   }
 
   static Future<int> updateProduct(int? id, int idUser, int idComunidade, String imagem, String descricao, bool status) async {
@@ -45,17 +55,6 @@ status BOOLEAN
     return await db.update('tbProdutos', dados, where: 'id = ?', whereArgs: [id]);
   }
 
-  static Future<List<Map<String, dynamic>>> getAllProducts() async {
-    final db = await ProductHelper.db();
-    return db.query('tbProdutos', orderBy: "id");
-  }
-
-  static Future<List<Map<String, dynamic>>> getProductById(int id) async {
-    final db = await ProductHelper.db();
-    return db.query('tbProdutos', where: "id = ?", whereArgs: [id], limit: 1);
-  }
-
-  // Método para excluir um produto pelo id
   static Future<int> deleteProduct(int id) async {
     final db = await ProductHelper.db();
     return await db.delete('tbProdutos', where: 'id = ?', whereArgs: [id]);
